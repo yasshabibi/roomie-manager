@@ -29,13 +29,19 @@ class UserManager extends BaseManager
     {
         $query = $this->pdo->query("select * from User where id = $id");
 
-        $user = [];
-
         $data = $query->fetch(\PDO::FETCH_ASSOC);
-        $user[] = new User($data);
+        $user = $data;
 
         return $user;
     }
 
-    
+    public function getPassword($id): string
+    {
+        $query = $this->pdo->query("select password from User where id = $id");
+
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        $password = $data;
+
+        return $password;
+    }
 }
