@@ -1,7 +1,3 @@
-CREATE database roomie_manager;
-
-USE roomie_manager
-
 CREATE TABLE IF NOT EXISTS Users (
     id INT NOT NULL PRIMARY KEY  AUTO_INCREMENT,
     lastname VARCHAR(25) NOT NULL,

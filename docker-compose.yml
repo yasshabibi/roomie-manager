@@ -14,7 +14,7 @@ services:
         image: 'mariadb'
         restart: always
         environment:
-            MYSQL_DATABASE: data
+            MYSQL_DATABASE: roomie_manager
             MYSQL_ROOT_PASSWORD: password
         volumes:
             - ./database/dump.sql:/docker-entrypoint-initdb.d/dump.sql
