@@ -2,7 +2,7 @@
 
 namespace App\Manager;
 
-use App\Entity\User;
+use App\Entity\Room;
 use App\Factory\PDOFactory;
 use App\Interfaces\Database;
 
@@ -19,9 +19,21 @@ class RoomManager extends BaseManager
         $rooms = [];
 
         while ($data = $query->fetch(\PDO::FETCH_ASSOC)) {
-            $rooms[] = new User($data);
+            $rooms[] = new Room($data);
         }
 
         return $rooms;
+    }
+
+    public function getRoom($id): array 
+    {
+        $query = $this->pdo->query("select * from Room where id = $id");
+
+        $room = [];
+
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        $room[] = new Room($data);
+
+        return $room;
     }
 }
