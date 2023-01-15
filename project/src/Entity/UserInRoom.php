@@ -6,6 +6,8 @@ class UserInRoom extends BaseEntity{
     private int $id;
     private int $userID;
     private int $roomID;
+    private int $rank;
+    private string $join_at;
 
     /**
      * @return int
@@ -61,4 +63,39 @@ class UserInRoom extends BaseEntity{
         return $this;
     }
 
+    /**
+     * @return int
+     */
+    public function getRank(): int
+    {
+        return $this->rank;
+    }
+
+    /**
+     * @param int $roomID
+     * @return UserInRoom
+     */
+    public function setRank(int $rank): UserInRoom
+    {
+        $this->rank = $rank;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJoinAt(): string
+    {
+        return $this->join_at;
+    }
+
+    /**
+     * @param string $join_at
+     * @return UserInRoom
+     */
+    public function setJoinAt(string $join_at): UserInRoom
+    {
+        $this->join_at = $join_at;
+        return $this;
+    }
 }

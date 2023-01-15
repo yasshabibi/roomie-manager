@@ -6,6 +6,7 @@ class Room extends BaseEntity{
     private int $id;
     private string $name;
     private int $capacity;
+    private string $created_at;
 
     /**
      * @return int
@@ -58,6 +59,24 @@ class Room extends BaseEntity{
     public function setCapacity(int $capacity): Room
     {
         $this->capacity = $capacity;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param string $created_at
+     * @return Room
+     */
+    public function setCreatedAt(string $created_at): Room
+    {
+        $this->created_at = $created_at;
         return $this;
     }
 }

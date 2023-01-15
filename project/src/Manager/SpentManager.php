@@ -36,4 +36,14 @@ class SpentManager extends BaseManager
 
         return $spent;
     }
+
+    public function getDate($id): string
+    {
+        $query = $this->pdo->query("select date from User where id = $id");
+
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        $date = $data;
+
+        return $date;
+    }
 }

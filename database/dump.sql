@@ -1,21 +1,26 @@
 CREATE TABLE IF NOT EXISTS Users (
     id INT NOT NULL PRIMARY KEY  AUTO_INCREMENT,
+    email VARCHAR(50) NOT NULL,
     lastname VARCHAR(25) NOT NULL,
     firstname VARCHAR(25) NOT NULL,
     rank INT NOT NULL,
     password VARCHAR(25) NOT NULL,
+    create_at DATETIME NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS Room (
     id INT NOT NULL PRIMARY KEY  AUTO_INCREMENT,
     name VARCHAR(25) NOT NULL,
     capacity INT NOT NULL,
+    create_at DATETIME NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS User_in_room (
     id INT NOT NULL PRIMARY KEY  AUTO_INCREMENT,
     room_id INT NOT NULL,
     user_id INT NOT NULL,
+    rank INT NOT NULL,
+    join_at DATETIME NOT NULL,
 );
 
 CREATE TABLE IF NOT EXISTS Spent (
@@ -24,4 +29,5 @@ CREATE TABLE IF NOT EXISTS Spent (
     room_id INT NOT NULL,
     money_spent INT NOT NULL,
     commentary VARCHAR(25),
+    date DATETIME NOT NULL,
 )

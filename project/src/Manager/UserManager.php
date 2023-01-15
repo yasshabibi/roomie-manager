@@ -44,4 +44,54 @@ class UserManager extends BaseManager
 
         return $password;
     }
+
+    public function getLastname($id): string
+    {
+        $query = $this->pdo->query("select lastname from User where id = $id");
+
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        $lastname = $data;
+
+        return $lastname;
+    }
+
+    public function getFirstname($id): string
+    {
+        $query = $this->pdo->query("select firstname from User where id = $id");
+
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        $firstname = $data;
+
+        return $firstname;
+    }
+
+    public function getEmail($id): string
+    {
+        $query = $this->pdo->query("select email from User where id = $id");
+
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        $email = $data;
+
+        return $email;
+    }
+
+    public function getRank($id): int
+    {
+        $query = $this->pdo->query("select rank from User where id = $id");
+
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        $rank = $data;
+
+        return $rank;
+    }
+
+    public function getCreatedAt($id): string
+    {
+        $query = $this->pdo->query("select created_at from User where id = $id");
+
+        $data = $query->fetch(\PDO::FETCH_ASSOC);
+        $created_at = $data;
+
+        return $created_at;
+    }
 }

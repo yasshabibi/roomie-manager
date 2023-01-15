@@ -4,10 +4,12 @@ namespace App\Entity;
 
 class User extends BaseEntity{
     private int $id;
+    private string $email;
     private string $lastname;
     private string $firstname;
     private int $rank;
     private string $password;
+    private string $created_at;
 
     /**
      * @return int
@@ -24,6 +26,24 @@ class User extends BaseEntity{
     public function setId(int $id): User
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return User
+     */
+    public function setEmail(int $email): User
+    {
+        $this->email = $email;
         return $this;
     }
 
@@ -96,6 +116,24 @@ class User extends BaseEntity{
     public function setPassword(string $password): User
     {
         $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param string $created_at
+     * @return Spent
+     */
+    public function setCreatedAt(string $created_at): User
+    {
+        $this->created_at = $created_at;
         return $this;
     }
 }

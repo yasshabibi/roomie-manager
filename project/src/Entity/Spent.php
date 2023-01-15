@@ -8,6 +8,7 @@ class Spent extends BaseEntity{
     private int $roomID;
     private int $moneySpent;
     private string $commentary;
+    private string $created_at;
 
     /**
      * @return int
@@ -96,6 +97,24 @@ class Spent extends BaseEntity{
     public function setCommentary(string $commentary): Spent
     {
         $this->commentary = $commentary;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * @param string $created_at
+     * @return Spent
+     */
+    public function setCreatedAt(string $created_at): Spent
+    {
+        $this->created_at = $created_at;
         return $this;
     }
 }
