@@ -1,107 +1,252 @@
-import React,{useState} from "react";
-import { NavLink } from 'react-router-dom'
+import React,{useState, useEffect} from "react";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './registration.css';
 
 export function Register() {
-  
-  const [userName, setUserName] = useState('');
-  const [userPassword, setUserPassword] = useState('');
 
-  const handleUserNameChange = (event) => { // permet de changer la valeur de l'input
-    setUserName(event.target.value);
-  }
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
-  const handleUserPasswordChange = (event) => { // permet de changer la valeur de l'input
-    setUserPassword(event.target.value);
-  }
+  useEffect(() => {
+    document.title = "Roomies - Inscription";
+  }, []);
 
-  const handleSubmit = () => {
-    if (userName.length === 0) {
-      alert('Please enter user name');
-      return;
-    }
-    else if (userPassword.length === 0) {
-      alert('Please enter password');
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!firstName || !lastName || !email || !password || !passwordConfirm) {
+      showToast("Veuillez remplir tous les champs", "error");
       return;
     }
 
-    else if (userName.length > 0 && userPassword.length > 0){
-      alert('try to register');
+    if (password !== passwordConfirm) {
+      showToast("Les mots de passe ne correspondent pas", "error");
+      return;
     }
 
-    alert(`User name: ${userName}, password: ${userPassword}`);
-  }
+    try {
+      await axios.post('/register', { firstName, lastName, email, password });
+      showToast("Inscription réussie", "success");
+    } catch (error) {
+      showToast("Une erreur s\'est produite lors de l\'inscription", "error");
+    }
+  };
 
+  const showToast = (content, appearance) => {
+    switch (appearance) {
+      case "success":
+        toast.success(content, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+        break;
+      case "error":
+        toast.error(content, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+        break;
+      case "warn":
+        toast.warn(content, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+        break;
+      default:
+        toast(content, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+    }
+  }
 
   return (
     <>
-    <div className="login">
-      <h1>Registration</h1>
-        <form>
-            <div className="form-group">
-                <label for="userName">User name</label>
-                <input type="text" className="form-control" id="userName" value={userName} onChange={handleUserNameChange} aria-describedby="userName" placeholder="Enter user name"/>
-            </div>
-            <div className="form-group">
-                <label for="userPassword">Password</label>
-                <input type="password" className="form-control" id="userPassword" value={userPassword} onChange={handleUserPasswordChange} placeholder="Password"/>
-            </div>
-            <button type="submit" className="submit" onClick={handleSubmit} >Register</button>
-        </form>
-    </div>
-    </>
-  );
+      <form onSubmit={handleSubmit}>
+        <label>
+          Prénom:
+          <input
+            type="text"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+          />
+        </label>
+        <label>
+          Nom:
+          <input
+            type="text"
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+          />
+        </label>
+        <label>
+          Email:
+          <input
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </label>
+        <label>
+          Mot de passe:
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </label>
+        <label>
+          Confirmez le mot de passe:
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </label>
+        <label>
+          Confirmez le mot de passe:
+          <input
+            type="password"
+            value={passwordConfirm}
+            onChange={(event) => setPasswordConfirm(event.target.value)}
+          />
+        </label>
+        <button type="submit">Envoyer</button>
+      </form>
+      <ToastContainer />
+  </>
+);
 }
 
 export function Login() {
 
-  const [userName, setUserName] = useState('');
-  const [userPassword, setUserPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleUserNameChange = (event) => {
-    setUserName(event.target.value);
-  }
+  useEffect(() => {
+    document.title = "Roomies - Connexion";
+  }, []);
 
-  const handleUserPasswordChange = (event) => {
-    setUserPassword(event.target.value);
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const handleSubmit = () => {
-    if (userName.length === 0) {
-      alert('Please enter user name');
-      return;
-    }
-    else if (userPassword.length === 0) {
-      alert('Please enter password');
+    if (!email || !password) {
+      showToast("Veuillez remplir tous les champs", "error");
       return;
     }
 
-    else if (userName.length > 0 && userPassword.length > 0){
-      alert('try to login');
+    try {
+      await axios.post('/login', { email, password });
+      showToast("Connexion réussie", "success");
+    } catch (error) {
+      showToast("Email ou mot de passe incorrect", "error");
     }
+  };
 
-    alert(`User name: ${userName}, password: ${userPassword}`);
+  const showToast = (content, appearance) => {
+    switch (appearance) {
+      case "success":
+        toast.success(content, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+        break;
+      case "error":
+        toast.error(content, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+        break;
+      case "warn":
+        toast.warn(content, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+        break;
+      default:
+        toast(content, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+    }
   }
-
 
   return (
     <>
-    <div className="register">
-      <h1>Login</h1>
-        <form>
-          <div className="form-group">
-              <label for="userName">User name</label>
-              <input type="text" className="form-control" id="userName" value={userName} onChange={handleUserNameChange} aria-describedby="userName" placeholder="Enter user name"/>
-            </div>
-            <div className="form-group">
-              <label for="userPassword">Password</label>
-              <input type="password" className="form-control" id="userPassword"  value={userPassword} onChange={handleUserPasswordChange} placeholder="Password"/>
-            </div>
-          <button type="submit" className="submit" onClick={handleSubmit}>Register</button>
-        </form>
-    </div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Email:
+          <input
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </label>
+        <label>
+          Mot de passe:
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </label>
+        <button type="submit">Connexion</button>
+      </form>
+      <ToastContainer autoClose={3000} />
     </>
   );
 }
-
